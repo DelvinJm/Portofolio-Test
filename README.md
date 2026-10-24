@@ -7,7 +7,7 @@ Single-page portfolio berbahasa Indonesia menggunakan **HTML5, Tailwind CSS via 
 1. Navbar fixed-top dengan menu seluler.
 2. About Me: nama dengan gradasi, slot foto, biografi, dan fokus Full-Stack, DevOps, serta Linux.
 3. Journey: SD, SMP, SMK Teknik Komputer dan Jaringan, serta S1 Teknik Informatika di Institut Teknologi Sains Bandung.
-4. Interests: slot video highlight dan minat teknis.
+4. Tech Arsenal: setup ROG Strix, periferal Pressplay/Ajazz, audio Equalizer APO, dan homelab Debian, Ollama, Zabbix, serta MikroTik.
 5. Certificates: AWS/Dicoding, DBS Foundation, serta internship PT Wahana Internet Nusantara dan PT Tri Centrum Fortuna.
 6. Contact: GitHub, Instagram, TikTok, WhatsApp, email, dan Saweria.
 
@@ -18,12 +18,26 @@ index.html                # HTML, konfigurasi tema Tailwind, dan CSS tambahan
 assets/content.js         # URL gambar, video, sertifikat, slider, dan kontak
 assets/main.js            # Menu, pemuatan media, dan slider
 assets/favicon.svg
+assets/favicon.png        # Fallback favicon DM, 48×48
+assets/apple-touch-icon.png # Ikon DM untuk perangkat Apple, 180×180
+assets/og-image.png       # Thumbnail berbagi tautan, 1200×630
 assets/placeholder.svg
+tests/slider.cjs          # Pemeriksaan perilaku slider tanpa dependensi
 ```
 
 ## Slider
 
-Foto berganti setiap **5 detik** saat minimal dua gambar berhasil dimuat. Tersedia kontrol sebelumnya/berikutnya, indikator foto, dan jeda. Autoplay berhenti saat tab tidak aktif, pointer atau fokus berada pada slider, dan saat pengguna mengaktifkan preferensi reduced motion. Gambar kosong/rusak tidak menjadi slide.
+Foto pertama yang valid dimuat di awal. Foto berikutnya diberi `loading="lazy"` dan URL `src` baru dipasang ketika foto dipilih melalui kontrol atau autoplay, sehingga seluruh galeri tidak diunduh sekaligus. Foto yang sedang tampil tetap terlihat selama foto berikutnya dimuat.
+
+Autoplay mencoba foto berikutnya setiap **5 detik** selama ada minimal dua URL foto yang belum dinyatakan gagal. Foto rusak atau melewati batas waktu pemuatan dilewati; indikator dan kontrol menyesuaikan jumlah foto yang tersisa. Tersedia kontrol sebelumnya/berikutnya, indikator foto, dan jeda. Autoplay berhenti saat tab tidak aktif, pointer atau fokus berada pada slider, dan saat pengguna mengaktifkan preferensi reduced motion.
+
+Jalankan pemeriksaan perilaku slider dengan `node tests/slider.cjs` dari direktori repo.
+
+## Preview tautan & favicon
+
+Metadata OpenGraph dan Twitter Card berada langsung di `<head>` agar judul, deskripsi, dan thumbnail bisa dibaca crawler tanpa JavaScript. Thumbnail PNG 1200×630 tersedia di `assets/og-image.png`; favicon memakai inisial **DM** dengan versi SVG, PNG, dan Apple touch icon. Tautan tab baru, termasuk kontak dan sertifikat yang diisi melalui JavaScript, memakai `rel="noopener noreferrer"`.
+
+URL publik yang dipakai adalah `https://delvinjm.github.io/Portofolio-Test/`. Jika pindah domain, perbarui `canonical`, `og:url`, `og:image`, `og:image:secure_url`, dan `twitter:image` di `index.html`. Preview WhatsApp/Discord dapat menyimpan cache versi lama setelah pembaruan.
 
 ## Tema
 

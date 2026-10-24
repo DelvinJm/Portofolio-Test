@@ -3,7 +3,8 @@
  * Gunakan URL HTTPS atau lokasi relatif, misalnya "assets/images/profil.jpg".
  * Video highlight menggunakan file video langsung (MP4), bukan URL halaman YouTube.
  * Foto magang: tambahkan objek { src: "URL-foto", alt: "Deskripsi foto" }.
- * Slider berjalan setiap 5 detik jika setidaknya dua foto berhasil dimuat.
+ * Foto pertama dimuat di awal; foto lainnya baru dimuat saat dipilih.
+ * Slider berganti setiap 5 detik selama masih ada foto lain yang bisa ditampilkan.
  */
 window.PORTFOLIO_CONTENT = {
   images: {

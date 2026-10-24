@@ -73,78 +73,96 @@
     video.load();
   }
 
-  function loadSlide(entry, index) {
-    const src = safeUrl(entry?.src, { relative: true });
-    if (!src) return Promise.resolve(null);
-    return new Promise(resolve => {
-      const image = new Image();
+  function loadSlide(slide, firstDisplay) {
+    if (slide.promise) return slide.promise;
+    slide.promise = new Promise(resolve => {
+      const { image, src } = slide;
       let finished = false;
-      const finish = result => {
+      const finish = loaded => {
         if (finished) return;
         finished = true;
         clearTimeout(timeout);
         image.onload = null;
         image.onerror = null;
-        resolve(result);
+        slide.state = loaded ? 'ready' : 'failed';
+        image.loading = firstDisplay ? 'eager' : 'lazy';
+        if (!loaded) image.removeAttribute('src');
+        resolve(loaded);
       };
-      const timeout = setTimeout(() => finish(null), 15000);
-      image.alt = typeof entry.alt === 'string' && entry.alt.trim()
-        ? entry.alt.trim()
-        : `Dokumentasi magang, foto ${index + 1}`;
-      image.decoding = 'async';
-      image.className = 'absolute inset-0 h-full w-full object-cover';
-      image.onload = () => finish(image.naturalWidth ? image : null);
-      image.onerror = () => finish(null);
+      const timeout = setTimeout(() => finish(false), 15000);
+      slide.state = 'loading';
+      image.onload = () => finish(image.naturalWidth > 0);
+      image.onerror = () => finish(false);
+      // src baru diberikan saat foto dipilih. Muat permintaan ini secara eksplisit
+      // agar gambar hidden + lazy tidak macet sambil foto sebelumnya tetap tampil.
+      image.loading = 'eager';
       image.src = src;
     });
+    return slide.promise;
   }
 
-  async function setupSlider(container) {
+  function setupSlider(container) {
     const entries = content.internships?.[container.dataset.slider];
     if (!Array.isArray(entries) || !entries.length) return;
     const slidesHost = container.querySelector('[data-slides]');
     const placeholder = container.querySelector('[data-slider-empty]');
     const controls = container.querySelector('[data-slider-controls]');
     if (!slidesHost) return;
-    const slides = (await Promise.all(entries.map(loadSlide))).filter(Boolean);
+    const slides = entries.flatMap((entry, index) => {
+      const src = safeUrl(entry?.src, { relative: true });
+      if (!src) return [];
+      const image = new Image();
+      image.alt = typeof entry.alt === 'string' && entry.alt.trim()
+        ? entry.alt.trim()
+        : `Dokumentasi magang, foto ${index + 1}`;
+      image.decoding = 'async';
+      image.loading = index === 0 ? 'eager' : 'lazy';
+      image.hidden = true;
+      image.className = 'absolute inset-0 h-full w-full object-cover';
+      slidesHost.append(image);
+      return [{ image, src, state: 'idle', promise: null }];
+    });
     if (!slides.length) return;
 
-    slides.forEach((image, index) => {
-      image.hidden = index !== 0;
-      slidesHost.append(image);
-    });
-    if (placeholder) placeholder.hidden = true;
-    if (slides.length < 2 || !controls) return;
-
-    let current = 0;
+    let current = -1;
+    let requested = 0;
+    let requestVersion = 0;
+    let selecting = false;
+    let automaticRequest = false;
     let timer = null;
     let userPaused = false;
     let pointerInside = false;
     let focusInside = false;
-    const previous = controls.querySelector('[data-prev]');
-    const next = controls.querySelector('[data-next]');
-    const toggle = controls.querySelector('[data-toggle]');
-    const dotsHost = controls.querySelector('[data-dots]');
-    const status = controls.querySelector('[data-slide-status]');
+    let pageActive = true;
+    const previous = controls?.querySelector('[data-prev]');
+    const next = controls?.querySelector('[data-next]');
+    const toggle = controls?.querySelector('[data-toggle]');
+    const dotsHost = controls?.querySelector('[data-dots]');
+    const status = controls?.querySelector('[data-slide-status]');
     const dots = [];
 
     if (status) status.setAttribute('aria-live', 'off');
-    controls.hidden = false;
     container.setAttribute('aria-roledescription', 'carousel');
     if (!container.hasAttribute('role')) container.setAttribute('role', 'region');
 
-    function show(index) {
-      current = (index + slides.length) % slides.length;
-      slides.forEach((image, slideIndex) => { image.hidden = slideIndex !== current; });
+    const autoplayBlocked = () => userPaused || reducedMotion.matches || pointerInside || focusInside || document.hidden || !pageActive;
+
+    function updateControls() {
+      const available = slides.filter(slide => slide.state !== 'failed');
+      if (controls) controls.hidden = current < 0 || available.length < 2;
       dots.forEach((dot, dotIndex) => {
         const active = dotIndex === current;
+        const number = available.indexOf(slides[dotIndex]) + 1;
+        dot.hidden = number === 0;
+        dot.disabled = number === 0;
+        dot.setAttribute('aria-label', `Tampilkan foto ${number}`);
         dot.setAttribute('aria-pressed', String(active));
         dot.setAttribute('aria-current', String(active));
         dot.dataset.active = String(active);
         dot.firstElementChild.classList.toggle('bg-primary', active);
         dot.firstElementChild.classList.toggle('bg-slate-300', !active);
       });
-      if (status) status.textContent = `${current + 1} / ${slides.length}`;
+      if (status) status.textContent = current < 0 ? '' : `${available.indexOf(slides[current]) + 1} / ${available.length}`;
     }
 
     function syncAutoplay() {
@@ -152,6 +170,16 @@
       timer = null;
       const motionPaused = reducedMotion.matches;
       const paused = userPaused || motionPaused;
+      const blocked = autoplayBlocked();
+      if (selecting && automaticRequest && blocked) {
+        // Batalkan pergantian otomatis yang masih menunggu jaringan. Hasil
+        // unduhan tetap disimpan untuk dipakai setelah autoplay dilanjutkan.
+        requestVersion += 1;
+        selecting = false;
+        automaticRequest = false;
+        requested = current;
+        container.setAttribute('aria-busy', 'false');
+      }
       if (toggle) {
         toggle.disabled = motionPaused;
         toggle.setAttribute('aria-pressed', String(paused));
@@ -160,13 +188,41 @@
           : userPaused ? 'Lanjutkan pergantian foto otomatis' : 'Jeda pergantian foto otomatis');
         toggle.textContent = motionPaused ? 'Gerakan dikurangi' : userPaused ? 'Lanjutkan' : 'Jeda';
       }
-      if (!paused && !pointerInside && !focusInside && !document.hidden) {
-        timer = setInterval(() => show(current + 1), AUTOPLAY_INTERVAL);
+      const multiple = slides.filter(slide => slide.state !== 'failed').length > 1;
+      if (current >= 0 && multiple && controls && !selecting && !blocked) {
+        timer = setInterval(() => { void select(current + 1, 1, true); }, AUTOPLAY_INTERVAL);
       }
     }
 
-    function select(index) {
-      show(index);
+    async function select(index, direction = 1, automatic = false) {
+      if (automatic && autoplayBlocked()) return;
+      const version = ++requestVersion;
+      requested = (index + slides.length) % slides.length;
+      selecting = true;
+      automaticRequest = automatic;
+      container.setAttribute('aria-busy', 'true');
+      syncAutoplay();
+      for (let attempt = 0; attempt < slides.length; attempt += 1) {
+        const candidate = requested;
+        const slide = slides[candidate];
+        const loaded = slide.state !== 'failed' && await loadSlide(slide, current < 0);
+        updateControls();
+        if (version !== requestVersion) {
+          if (!loaded) syncAutoplay();
+          return;
+        }
+        if (loaded) {
+          current = candidate;
+          slides.forEach(({ image }, slideIndex) => { image.hidden = slideIndex !== current; });
+          if (placeholder) placeholder.hidden = true;
+          break;
+        }
+        requested = (candidate + direction + slides.length) % slides.length;
+      }
+      selecting = false;
+      automaticRequest = false;
+      container.setAttribute('aria-busy', 'false');
+      updateControls();
       syncAutoplay();
     }
 
@@ -180,13 +236,13 @@
       indicator.setAttribute('aria-hidden', 'true');
       dot.append(indicator);
       dot.setAttribute('aria-label', `Tampilkan foto ${index + 1}`);
-      dot.addEventListener('click', () => select(index));
+      dot.addEventListener('click', () => { void select(index); });
       dots.push(dot);
       dotsHost.append(dot);
     });
 
-    previous?.addEventListener('click', () => select(current - 1));
-    next?.addEventListener('click', () => select(current + 1));
+    previous?.addEventListener('click', () => { void select(requested - 1, -1); });
+    next?.addEventListener('click', () => { void select(requested + 1); });
     toggle?.addEventListener('click', () => { userPaused = !userPaused; syncAutoplay(); });
     container.addEventListener('pointerenter', event => {
       if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
@@ -201,10 +257,9 @@
     });
     document.addEventListener('visibilitychange', syncAutoplay);
     reducedMotion.addEventListener('change', syncAutoplay);
-    window.addEventListener('pagehide', () => { if (timer !== null) clearInterval(timer); });
-    window.addEventListener('pageshow', syncAutoplay);
-    show(0);
-    syncAutoplay();
+    window.addEventListener('pagehide', () => { pageActive = false; syncAutoplay(); });
+    window.addEventListener('pageshow', () => { pageActive = true; syncAutoplay(); });
+    void select(0);
   }
 
   function setupNavigation() {
@@ -241,7 +296,7 @@
     setHeader();
 
     const links = [...document.querySelectorAll('[data-nav]')];
-    const sections = ['about', 'journey', 'interests', 'certificates', 'contact']
+    const sections = ['about', 'journey', 'tech-arsenal', 'certificates', 'contact']
       .map(id => document.getElementById(id)).filter(Boolean);
     if (!('IntersectionObserver' in window) || !sections.length) return;
     let observer;

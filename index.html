@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F0F0F0">
+  <meta name="description" content="Portofolio Delvin Junior Moto, mahasiswa Teknik Informatika di Institut Teknologi Sains Bandung. Eksplorasi Full-Stack, DevOps, Linux, jaringan, dan AI lokal.">
+  <meta property="og:title" content="Delvin Junior Moto | Personal Portfolio">
+  <meta property="og:description" content="Belajar, membangun, dan menghubungkan ide melalui teknologi.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <title>Delvin Junior Moto | Personal Portfolio</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-background: #F0F0F0;
+      --color-primary: #0179FB;
+      --color-secondary: #21C7E8;
+      --color-accent: #03DFFF;
+      --color-dark: #1F2937;
+      --font-sans: 'Segoe UI', Arial, sans-serif;
+    }
+  </style>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 6.5rem; }
+    body { margin: 0; background: #F0F0F0; color: #1F2937; font-family: 'Segoe UI', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    [hidden] { display: none !important; }
+    ::selection { background: #03DFFF; color: #1F2937; }
+    :focus-visible { outline: 3px solid #0179FB; outline-offset: 5px; }
+    #contact :focus-visible { outline-color: #03DFFF; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    img { max-width: 100%; }
+    noscript p { padding: 16px; text-align: center; background: #fff; }
+    .name-gradient { background: linear-gradient(110deg, #0179FB 12%, #21C7E8 64%, #03DFFF 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .blueprint { background-image: linear-gradient(#0179fb0b 1px, transparent 1px), linear-gradient(90deg, #0179fb0b 1px, transparent 1px); background-size: 32px 32px; }
+    #site-header { transition: box-shadow .2s, background .2s; }
+    #site-header[data-scrolled="true"] { box-shadow: 0 8px 30px #1f293708; }
+    [data-nav][aria-current="location"] { color: #015fc8; }
+    [data-nav][aria-current="location"]::after { content: ''; position: absolute; bottom: 2px; left: 0; width: 16px; height: 2px; background: #0179FB; }
+    [aria-disabled="true"] { cursor: default; }
+    [data-slides] { position: absolute; inset: 0; }
+    [data-slides] img { width: 100%; height: 100%; object-fit: cover; }
+    [data-dots] { display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    [data-dots] button { width: 32px; height: 32px; border: 0; padding: 8px; border-radius: 50%; background: transparent; }
+    .section-label { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .section-label::before { content: ''; width: 22px; height: 2px; background: #0179FB; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+  </style>
+  <script src="assets/content.js" defer></script>
+  <script src="assets/main.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="fixed top-4 left-4 z-50 -translate-y-24 rounded-xl bg-dark px-5 py-3 text-white focus:translate-y-0">Lewati ke konten utama</a>
+
+  <!-- 01 · Fixed navbar -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-40 border-b border-dark/10 bg-background/95 backdrop-blur-xl">
+    <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 lg:px-8">
+      <a href="#about" aria-label="Delvin, kembali ke beranda" class="flex items-center gap-2 text-2xl font-bold tracking-tighter"><span class="flex size-8 items-center justify-center rounded-lg bg-primary text-xs text-white">DJ</span>delvin<span class="-ml-2 text-primary">.</span></a>
+      <nav aria-label="Navigasi utama" class="hidden items-center gap-7 text-xs font-medium text-slate-600 md:flex">
+        <a data-nav href="#about" class="relative py-3 hover:text-primary">About</a>
+        <a data-nav href="#journey" class="relative py-3 hover:text-primary">Journey</a>
+        <a data-nav href="#interests" class="relative py-3 hover:text-primary">Interests</a>
+        <a data-nav href="#certificates" class="relative py-3 hover:text-primary">Certificates</a>
+      </nav>
+      <a href="#contact" class="hidden items-center gap-5 rounded-full border border-dark/20 px-5 py-2.5 text-xs font-semibold transition hover:border-primary hover:text-primary md:flex">Let's connect <i class="fa-solid fa-arrow-up-right-from-square text-[10px]" aria-hidden="true"></i></a>
+      <button id="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Buka menu navigasi" class="flex size-11 items-center justify-center rounded-lg border border-dark/15 md:hidden"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+    </div>
+    <nav id="mobile-menu" aria-label="Navigasi seluler" hidden class="border-t border-dark/10 px-6 py-4 md:hidden">
+      <a href="#about" class="block rounded-lg px-3 py-3 text-sm hover:bg-white">About Me</a>
+      <a href="#journey" class="block rounded-lg px-3 py-3 text-sm hover:bg-white">Journey</a>
+      <a href="#interests" class="block rounded-lg px-3 py-3 text-sm hover:bg-white">Interests</a>
+      <a href="#certificates" class="block rounded-lg px-3 py-3 text-sm hover:bg-white">Certificates</a>
+      <a href="#contact" class="block rounded-lg px-3 py-3 text-sm hover:bg-white">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- 02 · About Me -->
+    <section id="about" aria-labelledby="about-title" class="mx-auto max-w-6xl px-6 pt-32 pb-12 sm:pt-40 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+        <div>
+          <p class="mb-6 flex items-center gap-2 text-[10px] font-bold tracking-[.17em] text-slate-600"><span class="size-2 rounded-full bg-primary"></span>HELLO WORLD, I'M</p>
+          <h1 id="about-title" class="text-[clamp(52px,7.4vw,88px)] leading-[1.04] font-bold tracking-[-.065em]">Delvin<br><span class="name-gradient">Junior Moto.</span></h1>
+          <p class="mt-6 max-w-md text-lg leading-relaxed font-medium tracking-tight">Mahasiswa Teknik Informatika<br><span class="text-slate-500">&amp; Administrator Jaringan</span></p>
+          <p class="mt-5 max-w-lg text-sm leading-7 text-slate-600">Dari jaringan yang menghubungkan hingga aplikasi yang menghadirkan solusi. Saya mengeksplorasi <strong class="font-semibold text-dark">Full-Stack Development, DevOps, dan Linux</strong> dengan rasa ingin tahu yang terus tumbuh.</p>
+          <div class="mt-8 flex flex-wrap items-center gap-5">
+            <a href="#journey" class="inline-flex items-center gap-6 rounded-full bg-primary px-6 py-3.5 text-xs font-semibold text-white transition hover:bg-[#0063d0]">Kenali perjalanan saya <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+            <a href="https://github.com/DelvinJm" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold hover:text-primary"><i class="fa-brands fa-github text-lg" aria-hidden="true"></i>GitHub <i class="fa-solid fa-arrow-up-right-from-square text-[9px]" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="relative">
+          <div data-image="profile" class="blueprint relative aspect-[.96] overflow-hidden rounded-[28px] border border-white bg-[#e4eaf0]">
+            <img src="assets/placeholder.svg" alt="Foto profil Delvin Junior Moto" width="600" height="625" hidden class="absolute inset-0 size-full object-cover" fetchpriority="high">
+            <div data-placeholder class="absolute inset-0 flex flex-col items-center justify-center">
+              <div class="absolute size-[75%] rounded-full border border-primary/15"></div><div class="absolute size-[57%] rounded-full border border-primary/20"></div>
+              <span class="relative text-[100px] leading-none font-bold tracking-[-.1em] text-primary/85 sm:text-[135px]">DJ<span class="text-secondary">.</span></span>
+              <span class="relative mt-5 rounded-full border border-primary/15 bg-white/65 px-4 py-2 text-[10px] tracking-[.16em] text-slate-600">PHOTO COMING SOON</span>
+            </div>
+            <span class="absolute top-6 left-6 text-[10px] font-semibold tracking-[.16em] text-slate-600">PROFILE / 01</span>
+          </div>
+          <div class="absolute right-4 -bottom-5 left-4 flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_10px_35px_#1f29370a] sm:right-6 sm:left-6"><span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"><i class="fa-solid fa-code" aria-hidden="true"></i></span><div><p class="text-xs font-bold">Always learning. Always building.</p><p class="mt-1 text-[10px] text-slate-500">Satu ide, satu langkah, satu kemungkinan baru.</p></div></div>
+        </div>
+      </div>
+      <div class="mt-16 grid gap-6 border-y border-dark/10 py-7 sm:grid-cols-[1fr_auto] sm:items-center">
+        <p class="max-w-xl text-xs leading-6 text-slate-600">Mahasiswa di <strong class="font-semibold text-dark">Institut Teknologi Sains Bandung</strong>, dengan latar belakang Teknik Komputer dan Jaringan serta fokus pada MikroTik, server Linux, dan implementasi AI lokal.</p>
+        <div class="flex gap-5 text-sm text-slate-500"><span class="flex items-center gap-2"><i class="fa-brands fa-linux text-lg" aria-hidden="true"></i><span class="text-xs">Linux</span></span><span class="flex items-center gap-2"><i class="fa-solid fa-network-wired" aria-hidden="true"></i><span class="text-xs">Networking</span></span></div>
+      </div>
+    </section>
+
+    <!-- 03 · Journey -->
+    <section id="journey" aria-labelledby="journey-title" class="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
+      <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p class="section-label text-slate-600">01 / My journey</p><h2 id="journey-title" class="mt-4 text-4xl leading-tight font-semibold tracking-[-.045em] sm:text-5xl">Setiap langkah,<br>membentuk cerita.</h2></div><p class="max-w-xs text-xs leading-6 text-slate-600">Perjalanan belajar yang menjadi fondasi untuk terus bertumbuh bersama teknologi.</p></div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <article class="overflow-hidden rounded-2xl border border-dark/10 bg-white">
+          <div data-image="journey-sd" class="relative aspect-[4/3] bg-[#e7edf3]"><img src="assets/placeholder.svg" alt="Dokumentasi masa Sekolah Dasar" width="480" height="360" hidden loading="lazy" class="absolute inset-0 size-full object-cover"><div data-placeholder class="flex h-full flex-col items-center justify-center gap-3 text-slate-500"><i class="fa-solid fa-school text-3xl text-primary/55" aria-hidden="true"></i><span class="text-[10px] tracking-widest">MASA SEKOLAH DASAR</span></div><span class="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">01</span></div>
+          <div class="p-5"><p class="text-[10px] font-semibold tracking-wider text-slate-500">AWAL PERJALANAN</p><h3 class="mt-2 text-lg font-semibold tracking-tight">Sekolah Dasar</h3><p class="mt-3 text-xs leading-6 text-slate-600">Langkah pertama dalam perjalanan pendidikan.</p></div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-dark/10 bg-white">
+          <div data-image="journey-smp" class="relative aspect-[4/3] bg-[#e2eef1]"><img src="assets/placeholder.svg" alt="Dokumentasi masa Sekolah Menengah Pertama" width="480" height="360" hidden loading="lazy" class="absolute inset-0 size-full object-cover"><div data-placeholder class="flex h-full flex-col items-center justify-center gap-3 text-slate-500"><i class="fa-solid fa-book-open text-3xl text-[#10879e]" aria-hidden="true"></i><span class="text-[10px] tracking-widest">MASA SEKOLAH MENENGAH</span></div><span class="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">02</span></div>
+          <div class="p-5"><p class="text-[10px] font-semibold tracking-wider text-slate-500">MELANJUTKAN LANGKAH</p><h3 class="mt-2 text-lg font-semibold tracking-tight">Sekolah Menengah Pertama</h3><p class="mt-3 text-xs leading-6 text-slate-600">Melanjutkan pendidikan dan memperluas pengetahuan.</p></div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-dark/10 bg-white">
+          <div data-image="journey-smk" class="relative aspect-[4/3] bg-[#e4e9f6]"><img src="assets/placeholder.svg" alt="Dokumentasi masa SMK Teknik Komputer dan Jaringan" width="480" height="360" hidden loading="lazy" class="absolute inset-0 size-full object-cover"><div data-placeholder class="flex h-full flex-col items-center justify-center gap-3 text-slate-500"><i class="fa-solid fa-network-wired text-3xl text-primary/60" aria-hidden="true"></i><span class="text-[10px] tracking-widest">KOMPUTER &amp; JARINGAN</span></div><span class="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">03</span></div>
+          <div class="p-5"><p class="text-[10px] font-semibold tracking-wider text-slate-500">FONDASI TEKNIS</p><h3 class="mt-2 text-lg font-semibold tracking-tight">SMK Teknik Komputer &amp; Jaringan</h3><p class="mt-3 text-xs leading-6 text-slate-600">Latar belakang pendidikan di bidang komputer dan jaringan.</p></div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-primary/30 bg-white">
+          <div data-image="journey-s1" class="relative aspect-[4/3] bg-[#deebf9]"><img src="assets/placeholder.svg" alt="Dokumentasi perkuliahan di Institut Teknologi Sains Bandung" width="480" height="360" hidden loading="lazy" class="absolute inset-0 size-full object-cover"><div data-placeholder class="flex h-full flex-col items-center justify-center gap-3 text-slate-500"><i class="fa-solid fa-graduation-cap text-3xl text-primary" aria-hidden="true"></i><span class="text-[10px] tracking-widest">TEKNIK INFORMATIKA</span></div><span class="absolute top-4 left-4 rounded-full bg-primary px-2.5 py-1 text-[10px] font-semibold text-white">SAAT INI</span></div>
+          <div class="p-5"><p class="text-[10px] font-semibold tracking-wider text-[#015fc8]">S1 TEKNIK INFORMATIKA</p><h3 class="mt-2 text-lg font-semibold tracking-tight">Institut Teknologi Sains Bandung</h3><p class="mt-3 text-xs leading-6 text-slate-600">Mendalami informatika dan terus mengeksplorasi teknologi.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04 · Interests -->
+    <section id="interests" aria-labelledby="interests-title" class="my-6 bg-white py-20">
+      <div class="mx-auto max-w-6xl px-6 lg:px-8">
+        <p class="section-label text-slate-600">02 / What keeps me curious</p>
+        <div class="mt-4 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><h2 id="interests-title" class="text-4xl font-semibold tracking-[-.045em] sm:text-5xl">Rasa ingin tahu.<br>Ruang untuk mencoba.</h2><p class="max-w-xs text-xs leading-6 text-slate-600">Mengeksplorasi cara sebuah aplikasi dibangun, dijalankan, dan dihubungkan.</p></div>
+        <div class="mt-10 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <div class="relative aspect-video overflow-hidden rounded-2xl bg-dark">
+              <video data-highlight-video hidden controls playsinline preload="metadata" aria-label="Video highlight eksplorasi teknologi Delvin" class="absolute inset-0 size-full object-contain"></video>
+              <div data-video-placeholder class="absolute inset-0 flex flex-col justify-between p-6 text-white sm:p-8"><div class="flex justify-between text-[9px] tracking-[.18em] text-white/60"><span>BEHIND THE SCREEN</span><span>HIGHLIGHT / 01</span></div><div><div class="mb-4 flex size-12 items-center justify-center rounded-full border border-accent/30 text-accent"><i class="fa-solid fa-film text-lg" aria-hidden="true"></i></div><p class="text-2xl leading-tight font-medium tracking-tight sm:text-3xl">A little process.<br>A lot of possibilities.</p><p class="mt-3 text-xs text-white/65">Video highlight segera ditambahkan.</p></div></div>
+            </div>
+            <p class="mt-4 text-[11px] leading-5 text-slate-500">Catatan visual tentang proses belajar, eksplorasi, dan ide yang sedang tumbuh.</p>
+          </div>
+          <div class="divide-y divide-dark/10">
+            <article class="flex gap-4 pb-6"><span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"><i class="fa-solid fa-code" aria-hidden="true"></i></span><div><h3 class="text-lg font-semibold tracking-tight">Full-Stack Development</h3><p class="mt-2 text-xs leading-6 text-slate-600">Tertarik pada proses membangun aplikasi web, dari antarmuka yang digunakan hingga logika di baliknya.</p><p class="mt-3 text-[10px] font-medium tracking-wide text-[#015fc8]">FRONTEND · BACKEND · WEB</p></div></article>
+            <article class="flex gap-4 py-6"><span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-[#087d92]"><i class="fa-solid fa-server" aria-hidden="true"></i></span><div><h3 class="text-lg font-semibold tracking-tight">DevOps &amp; Networking</h3><p class="mt-2 text-xs leading-6 text-slate-600">Mengeksplorasi hubungan antara aplikasi dan infrastruktur, dengan fondasi administrasi jaringan MikroTik.</p><p class="mt-3 text-[10px] font-medium tracking-wide text-[#015fc8]">INFRASTRUCTURE · MIKROTIK · AUTOMATION</p></div></article>
+            <article class="flex gap-4 pt-6"><span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-dark/5 text-dark"><i class="fa-brands fa-linux text-xl" aria-hidden="true"></i></span><div><h3 class="text-lg font-semibold tracking-tight">Linux &amp; Local AI</h3><p class="mt-2 text-xs leading-6 text-slate-600">Manajemen server Linux serta eksplorasi dan implementasi model kecerdasan buatan di lingkungan lokal.</p><p class="mt-3 text-[10px] font-medium tracking-wide text-[#015fc8]">LINUX · SERVER · LOCAL MODELS</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Certificates &amp; internships -->
+    <section id="certificates" aria-labelledby="certificates-title" class="mx-auto max-w-6xl px-6 py-20 lg:px-8">
+      <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p class="section-label text-slate-600">03 / Learning &amp; experience</p><h2 id="certificates-title" class="mt-4 text-4xl leading-tight font-semibold tracking-[-.045em] sm:text-5xl">Bekal ilmu.<br>Pengalaman nyata.</h2></div><p class="max-w-xs text-xs leading-6 text-slate-600">Bagian dari perjalanan mengembangkan kemampuan melalui program belajar dan internship.</p></div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        <article class="grid overflow-hidden rounded-2xl border border-dark/10 bg-white sm:grid-cols-[.8fr_1fr]">
+          <div data-image="cert-aws" class="relative min-h-44 bg-[#e4ecf5]"><img src="assets/placeholder.svg" alt="Sertifikat program AWS dan Dicoding milik Delvin" width="600" height="450" hidden loading="lazy" class="absolute inset-0 size-full object-contain p-3"><div data-placeholder class="flex h-full min-h-44 flex-col items-center justify-center gap-2"><i class="fa-solid fa-award text-3xl text-[#015fc8]" aria-hidden="true"></i><span class="text-xs font-bold tracking-wide">AWS × Dicoding</span><span class="text-[10px] text-slate-500">SERTIFIKAT</span></div></div>
+          <div class="p-6"><p class="text-[9px] font-semibold tracking-[.15em] text-slate-500">LEARNING PROGRAM</p><h3 class="mt-3 text-xl font-semibold tracking-tight">AWS &amp; Dicoding</h3><p class="mt-3 text-xs leading-6 text-slate-600">Pencapaian dalam perjalanan pengembangan kompetensi teknologi.</p><a data-certificate="aws" aria-disabled="true" class="mt-5 inline-flex items-center gap-2 text-xs font-medium text-slate-500">Sertifikat segera ditambahkan</a></div>
+        </article>
+        <article class="grid overflow-hidden rounded-2xl border border-dark/10 bg-white sm:grid-cols-[.8fr_1fr]">
+          <div data-image="cert-dbs" class="relative min-h-44 bg-[#e2edf0]"><img src="assets/placeholder.svg" alt="Sertifikat program DBS Foundation milik Delvin" width="600" height="450" hidden loading="lazy" class="absolute inset-0 size-full object-contain p-3"><div data-placeholder class="flex h-full min-h-44 flex-col items-center justify-center gap-2"><i class="fa-solid fa-certificate text-3xl text-[#087d92]" aria-hidden="true"></i><span class="text-xs font-bold tracking-wide">DBS Foundation</span><span class="text-[10px] text-slate-500">SERTIFIKAT</span></div></div>
+          <div class="p-6"><p class="text-[9px] font-semibold tracking-[.15em] text-slate-500">LEARNING PROGRAM</p><h3 class="mt-3 text-xl font-semibold tracking-tight">DBS Foundation</h3><p class="mt-3 text-xs leading-6 text-slate-600">Bagian dari komitmen untuk belajar dan meningkatkan kemampuan.</p><a data-certificate="dbs" aria-disabled="true" class="mt-5 inline-flex items-center gap-2 text-xs font-medium text-slate-500">Sertifikat segera ditambahkan</a></div>
+        </article>
+      </div>
+      <div class="mt-14 mb-6 flex items-center gap-4"><h3 class="text-xl font-semibold tracking-tight">Internship experience</h3><span class="h-px flex-1 bg-dark/10"></span><span class="text-[10px] font-medium tracking-widest text-slate-500">LEARNING BY DOING</span></div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <article class="overflow-hidden rounded-2xl border border-dark/10 bg-white">
+          <section data-slider="wahana" aria-roledescription="carousel" aria-label="Foto internship PT Wahana Internet Nusantara">
+            <div class="relative aspect-[16/10] bg-[#dfe8f1]">
+              <div data-slides></div>
+              <div data-slider-empty class="blueprint flex h-full flex-col items-center justify-center gap-4"><i class="fa-solid fa-network-wired text-4xl text-primary/60" aria-hidden="true"></i><p class="text-sm font-semibold">Di balik sebuah koneksi.</p><span class="text-[10px] tracking-wide text-slate-600">DOKUMENTASI MAGANG SEGERA DITAMBAHKAN</span></div>
+              <span class="absolute top-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-semibold">INTERNSHIP / 01</span>
+            </div>
+            <div data-slider-controls hidden class="flex flex-wrap items-center justify-between gap-3 border-b border-dark/10 px-5 py-3">
+              <div class="flex items-center gap-2"><button data-prev type="button" aria-label="Foto Wahana sebelumnya" class="size-9 rounded-full border border-dark/15 hover:bg-background"><i class="fa-solid fa-chevron-left text-xs" aria-hidden="true"></i></button><button data-next type="button" aria-label="Foto Wahana berikutnya" class="size-9 rounded-full border border-dark/15 hover:bg-background"><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></button><span data-slide-status class="ml-1 text-[10px] text-slate-500"></span></div>
+              <div data-dots></div><button data-toggle type="button" class="min-h-9 rounded-lg px-2 text-[10px] font-semibold hover:bg-background">Jeda otomatis</button>
+            </div>
+          </section>
+          <div class="p-6"><p class="text-[10px] font-semibold tracking-wider text-[#015fc8]">PENGALAMAN MAGANG</p><h4 class="mt-2 text-xl font-semibold tracking-tight">PT Wahana Internet Nusantara</h4><p class="mt-3 text-xs leading-6 text-slate-600">Bagian dari perjalanan belajar melalui pengalaman di lingkungan kerja.</p></div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-dark/10 bg-white">
+          <section data-slider="triCentrum" aria-roledescription="carousel" aria-label="Foto internship PT Tri Centrum Fortuna">
+            <div class="relative aspect-[16/10] bg-[#ddebee]">
+              <div data-slides></div>
+              <div data-slider-empty class="blueprint flex h-full flex-col items-center justify-center gap-4"><i class="fa-solid fa-laptop-code text-4xl text-[#10879e]" aria-hidden="true"></i><p class="text-sm font-semibold">Pengalaman membuka perspektif.</p><span class="text-[10px] tracking-wide text-slate-600">DOKUMENTASI MAGANG SEGERA DITAMBAHKAN</span></div>
+              <span class="absolute top-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-semibold">INTERNSHIP / 02</span>
+            </div>
+            <div data-slider-controls hidden class="flex flex-wrap items-center justify-between gap-3 border-b border-dark/10 px-5 py-3">
+              <div class="flex items-center gap-2"><button data-prev type="button" aria-label="Foto Tri Centrum sebelumnya" class="size-9 rounded-full border border-dark/15 hover:bg-background"><i class="fa-solid fa-chevron-left text-xs" aria-hidden="true"></i></button><button data-next type="button" aria-label="Foto Tri Centrum berikutnya" class="size-9 rounded-full border border-dark/15 hover:bg-background"><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></button><span data-slide-status class="ml-1 text-[10px] text-slate-500"></span></div>
+              <div data-dots></div><button data-toggle type="button" class="min-h-9 rounded-lg px-2 text-[10px] font-semibold hover:bg-background">Jeda otomatis</button>
+            </div>
+          </section>
+          <div class="p-6"><p class="text-[10px] font-semibold tracking-wider text-[#015fc8]">PENGALAMAN MAGANG</p><h4 class="mt-2 text-xl font-semibold tracking-tight">PT Tri Centrum Fortuna</h4><p class="mt-3 text-xs leading-6 text-slate-600">Kesempatan untuk mengenal praktik kerja dan mengembangkan pemahaman teknis.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 06 · Contact -->
+    <section id="contact" aria-labelledby="contact-title" class="mx-auto max-w-6xl px-6 pt-4 pb-10 lg:px-8">
+      <div class="relative overflow-hidden rounded-[28px] bg-dark p-7 text-white sm:p-12">
+        <div aria-hidden="true" class="pointer-events-none absolute -top-44 -right-44 size-[500px] rounded-full border border-secondary/20"></div>
+        <div class="relative grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end"><div><p class="section-label text-white/65">04 / Let's connect</p><h2 id="contact-title" class="mt-5 text-[clamp(34px,4.5vw,52px)] leading-[1.1] font-semibold tracking-[-.045em]">Ide berikutnya bisa<br>dimulai dari <span class="text-accent">halo.</span></h2><p class="mt-5 max-w-sm text-xs leading-6 text-white/65">Untuk kolaborasi, berbagi pengetahuan, atau sekadar bertukar cerita seputar teknologi.</p></div><a href="mailto:delvinjrmoto@gmail.com" class="flex min-w-0 items-center justify-between gap-3 border-b border-white/25 pb-4 text-base tracking-tight transition hover:text-accent sm:text-xl"><span class="break-all">delvinjrmoto@gmail.com</span><i class="fa-solid fa-arrow-up-right-from-square shrink-0 text-sm" aria-hidden="true"></i></a></div>
+        <div class="relative mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <a href="https://github.com/DelvinJm" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-brands fa-github text-lg" aria-hidden="true"></i>GitHub</a>
+          <a href="https://www.instagram.com/itsvinndell/" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-brands fa-instagram text-lg" aria-hidden="true"></i>Instagram</a>
+          <a href="https://www.tiktok.com/@vinzlitt" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-brands fa-tiktok text-lg" aria-hidden="true"></i>TikTok</a>
+          <a data-contact="whatsapp" href="https://wa.me/6285888334984" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-brands fa-whatsapp text-lg" aria-hidden="true"></i>WhatsApp</a>
+          <a href="mailto:delvinjrmoto@gmail.com" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-regular fa-envelope text-lg" aria-hidden="true"></i>Email</a>
+          <a data-contact="saweria" href="https://saweria.co/satooo" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/15 text-xs transition hover:border-accent hover:text-accent"><i class="fa-solid fa-mug-hot text-lg" aria-hidden="true"></i>Saweria</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-6 pt-1 pb-8 text-[10px] text-slate-600 sm:flex-row lg:px-8"><p>© <span data-year>2026</span> Delvin Junior Moto. Made with curiosity.</p><div class="flex gap-5"><a href="https://www.linkedin.com/in/delvinjuniormoto" target="_blank" rel="noopener noreferrer" class="hover:text-primary">LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[8px]" aria-hidden="true"></i></a><a href="#about" class="hover:text-primary">Kembali ke atas <i class="fa-solid fa-arrow-up ml-1" aria-hidden="true"></i></a></div></footer>
+  <noscript><p>Aktifkan JavaScript untuk memuat media, menu seluler, dan slider foto. Semua informasi utama dan tautan kontak tetap tersedia.</p></noscript>
+</body>
+</html>

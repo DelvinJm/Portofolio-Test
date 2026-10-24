@@ -21,35 +21,6 @@ assets/favicon.svg
 assets/placeholder.svg
 ```
 
-## Menambahkan media
-
-Edit `assets/content.js`. Isikan URL HTTPS atau path relatif terhadap `index.html`, misalnya `assets/foto-profil.jpg`. Gambar yang belum diisi atau gagal dimuat memakai placeholder. Nama sekolah, tahun pendidikan, judul sertifikat lengkap, dan tanggal magang dapat dilengkapi langsung di `index.html` sesuai data sebenarnya.
-
-```js
-images: {
-  profile: 'assets/foto-profil.jpg',
-  'journey-sd': 'assets/foto-sd.jpg',
-  'journey-smp': 'assets/foto-smp.jpg',
-  'journey-smk': 'assets/foto-smk.jpg',
-  'journey-s1': 'assets/foto-kampus.jpg',
-  'cert-aws': 'assets/sertifikat-aws.jpg',
-  'cert-dbs': 'assets/sertifikat-dbs.jpg'
-},
-highlightVideo: 'assets/highlight.mp4',
-videoPoster: 'assets/highlight-cover.jpg',
-internships: {
-  wahana: [
-    { src: 'assets/wahana-1.jpg', alt: 'Deskripsi foto pertama kegiatan magang' },
-    { src: 'assets/wahana-2.jpg', alt: 'Deskripsi foto kedua kegiatan magang' }
-  ],
-  triCentrum: [
-    { src: 'assets/tri-centrum-1.jpg', alt: 'Deskripsi kegiatan magang' }
-  ]
-}
-```
-
-Video menggunakan URL file video langsung, bukan tautan halaman YouTube. Lengkapi `certificates.aws` dan `certificates.dbs` dengan tautan verifikasi atau dokumen asli. Tombol sertifikat aktif setelah URL diisi.
-
 ## Slider
 
 Foto berganti setiap **5 detik** saat minimal dua gambar berhasil dimuat. Tersedia kontrol sebelumnya/berikutnya, indikator foto, dan jeda. Autoplay berhenti saat tab tidak aktif, pointer atau fokus berada pada slider, dan saat pengguna mengaktifkan preferensi reduced motion. Gambar kosong/rusak tidak menjadi slide.

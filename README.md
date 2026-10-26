@@ -6,9 +6,9 @@ Single-page portfolio berbahasa Indonesia menggunakan **HTML5, Tailwind CSS via 
 
 1. Navbar fixed-top dengan menu seluler.
 2. About Me: nama dengan gradasi, slot foto, biografi, dan fokus Full-Stack, DevOps, serta Linux.
-3. Journey: SD, SMP, SMK Teknik Komputer dan Jaringan, serta S1 Teknik Informatika di Institut Teknologi Sains Bandung.
-4. Tech Arsenal: setup ROG Strix, periferal Pressplay/Ajazz, audio Equalizer APO, dan homelab Debian, Ollama, Zabbix, serta MikroTik.
-5. Certificates: AWS/Dicoding, DBS Foundation, serta internship PT Wahana Internet Nusantara dan PT Tri Centrum Fortuna.
+3. Journey: SD, SMP, SMK Teknik Komputer dan Jaringan, serta S1 Informatika
+4. Tech Arsenal: setup ROG Strix, periferal Eweadn & ATK , Cai Wenji , dan homelab Debian, Ollama, Zabbix, serta MikroTik.
+5. Certificates: AWS/Dicoding, DBS Foundation, serta internship 
 6. Contact: GitHub, Instagram, TikTok, WhatsApp, email, dan Saweria.
 
 ## Struktur
